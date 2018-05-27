@@ -5,13 +5,15 @@ def queryTeam(cursor):
     return list(cursor.execute(query))
 
 
-def queryJobs(cursor, who, date):
-    query = "SELECT `Requestor` FROM WIP WHERE 1=1 "
-    
-    if who != "":
-        query += " AND `Created by` = '" + who + "'"
-    if date != "":
-        query += " AND `Date` = '" + date + "'"
+def queryHistories(cursor, args):
+    who, date = args[0], args[1]
+
+    query = "SELECT `Created by` FROM WIP WHERE 1=1 "
+    whos = who.split("/")
+    if len(whos) > 0:
+        query += " AND `Requestor` LIKE '%" + whos[0] + "%'"
+    if len(date) == 16:
+        query += " AND `Time` = '" + date[11:] + "'"
 
     query += ";"
 

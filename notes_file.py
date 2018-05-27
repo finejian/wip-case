@@ -1,7 +1,7 @@
 
 def split(filePath):
 
-    f =  open(filePath)
+    f =  open(filePath, encoding="utf-8")
     mails = f.read().split("whosetvianotes")
     mailsLines = []
 

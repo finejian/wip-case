@@ -1,8 +1,10 @@
 import notes_tools as tools
 import utils
+import mdb
+import mdb_query as query
 
 
-def handle(lines):
+def handle(result, lines):
     postedFrom = ""
     postedSubject = ""
     postedDate = ""
@@ -31,11 +33,24 @@ def handle(lines):
         if tc != "" and latestCreator == "":
             latestCreator = tc
 
+    result.write("%16s%s\n"%("posted from: ", postedFrom))
+    result.write("%16s%s\n"%("posted subjec: ", postedSubject))
+    result.write("%16s%s\n"%("posted time: ", postedDate))
+    result.write("%16s%s\n"%("first from: ", firstFrom))
+    result.write("%16s%s\n"%("first time: ", firstDate))
+    result.write("%16s%s\n"%("latest creator: ", latestCreator))
+    
+    if latestCreator == "" and firstFrom != "" and firstDate != "":
+        args = [firstFrom, firstDate]
 
-    print("%16s%s"%("posted from: ", postedFrom))
-    print("%16s%s"%("posted subjec: ", postedSubject))
-    print("%16s%s"%("posted time: ", postedDate))
-    print("%16s%s"%("first from: ", firstFrom))
-    print("%16s%s"%("first time: ", firstDate))
-    print("%16s%s"%("latest creator: ", latestCreator))
+        # args = ["Viking Wu", "2018/05/27 15:09"]
+        rows = mdb.doQuery(query.queryHistories, args)
+        if len(rows) > 0:
+            for row in rows:
+                result.write("history creator: ", row[0])
+            result.write("")
+        else:
+            result.write("history not found.")
+            result.write("")
+
 
