@@ -1,4 +1,5 @@
 import notes_tools as tools
+import utils
 
 
 def handle(lines):
@@ -23,7 +24,7 @@ def handle(lines):
 
         fr, fd = tools.firstFromAndDate(lines[i], lines[i-2:i+4])
         if fr != "" and fd != "":
-            firstFrom, firstDate = fr, fd
+            firstFrom, firstDate = fr, utils.formatDatetime(fd)
 
 
         tc = tools.teamCreator(lines[i:i+5])
@@ -31,10 +32,10 @@ def handle(lines):
             latestCreator = tc
 
 
-    print("posted from: ", postedFrom)
-    print("posted subjec: ", postedSubject)
-    print("posted time: ", postedDate)
-    print("first from: ", firstFrom)
-    print("first time: ", firstDate)
-    print("latest creator: ", latestCreator)
+    print("%16s%s"%("posted from: ", postedFrom))
+    print("%16s%s"%("posted subjec: ", postedSubject))
+    print("%16s%s"%("posted time: ", postedDate))
+    print("%16s%s"%("first from: ", firstFrom))
+    print("%16s%s"%("first time: ", firstDate))
+    print("%16s%s"%("latest creator: ", latestCreator))
 
