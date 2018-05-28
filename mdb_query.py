@@ -19,8 +19,8 @@ def queryHistories(cursor, args):
 
     return list(cursor.execute(query))
 
-def __hasCode(cursor, code):
-    query = r"SELECT * FROM WIP WHERE `Code`='{}';".format(code)
+def __historyCodes(cursor, code):
+    query = r"SELECT * FROM WIP WHERE `Code`='{0}';".format(code)
     return list(cursor.execute(query))
 
 
@@ -37,17 +37,26 @@ def insertCase(cursor, args):
 
     code = "{1}{2}{3}{4}{0}".format(args[4] ,args[5], args[6], args[7], args[8])
 
-    # if len(__hasCode(cursor, code)) > 0:
-    #     print("code '{}' not correct or existed, wasn't write".format(code))
-    #     return
+    date, time, caseType, createdBy = args[1], args[2], args[4], args[9]
+    historyCases = __historyCodes(cursor, code)
+    hasNew = False
+    newAssignedTo = ""
 
-    requestor, date, time = args[0],   args[1], args[2]
-    if len(__hasRequestorDateTime(cursor, requestor, date, time)) > 0:
-        print("requestor '{0}' datetime '{1} {2}' not correct or existed, wasn't write".format(requestor, date, time))
+    for row in historyCases:
+        if row[13] == "New":
+            hasNew = True
+            newAssignedTo = row[12]
+            break
+
+    if hasNew:
+        print("code '{}', new assgin to '{}', already new assgined to '{}', wasn't do write.".format(code, createdBy, newAssignedTo))
         return
+    
+    if len(historyCases):
+        caseType = "{}{} {}".format(caseType, date, time)
 
     argsColumns = "`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`From Client`,	`From Job`,	`To Client`, `To Job`,	`Code`,	`Created by`"
-    argsValues = "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}'".format(args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], code, args[9])
+    argsValues = "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}'".format(args[0], args[1], args[2], args[3], caseType, args[5], args[6], args[7], args[8], code, args[9])
 
     otherColumns = "`Item`,	`Reason`, `Finish Date`,	`Spending Time`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Segment`,	`Error Input`,	`Note`,	`Checking By`,	`Checking Result`,	`Unqualify`"
     otherValues = "0,	'',	'New',	0,	'',	'',	'',	'',	'',	'',	'',	'',	'',	''"
@@ -58,3 +67,12 @@ def insertCase(cursor, args):
     cursor.commit()
     
     print("code '{}' save success.".format(code))
+
+# 'Requestor',	'Date',	'Time',	'Subject',	'Type',	'From Client',	'From Job',	'To Client',	'To Job',	'Code',	'Item',	'Reason', 
+# '1',			'2',	'3',	'4',		'5',	'6',			'7',		'8',			'9',		'10',	'11',	'12', 
+
+# 'Created by',	'Finish Date',	'Spending Time',	'Vocher No',	'Remark',	'Office',	'LOS',	'Segment',	'Error Input',	'Note', 
+# '13',			'14',			'15',				'16',			'17',		'18',		'19',	'20',		'21',			'22', 
+
+# 'Checking By',	'Checking Result',	'Unqualify'
+# '23',	'24',	'25',	

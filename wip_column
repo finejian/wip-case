@@ -43,3 +43,14 @@
 'Angie AJ He', '2017/12/29', '15:17',	'Time Transfer Request (via Notes)',	'T',	'06011286',	'S004',	'00120105',	'0000',	'06011286S004001201050000T',	'1',	'Wrong charge',
 'Catherine',	'2018/1/2',	'0',	'CTU0382',	'4',	'PEK',	'RA',	'',	'',	'need PIC approve',
 'Catherine',	'Right',	''
+
+
+
+'Requestor',	'Date',	'Time',	'Subject',	'Type',	'From Client',	'From Job',	'To Client',	'To Job',	'Code',	'Item',	'Reason', 
+'1',			'2',	'3',	'4',		'5',	'6',			'7',		'8',			'9',		'10',	'11',	'12', 
+
+'Created by',	'Finish Date',	'Spending Time',	'Vocher No',	'Remark',	'Office',	'LOS',	'Segment',	'Error Input',	'Note', 
+'13',			'14',			'15',				'16',			'17',		'18',		'19',	'20',		'21',			'22', 
+
+'Checking By',	'Checking Result',	'Unqualify'
+'23',	'24',	'25',	
