@@ -46,8 +46,8 @@ def handle(result, lines):
         # args = ["Viking Wu", "2018/05/27 15:09"]
         rows = mdb.doQuery(query.queryHistories, args)
         if len(rows) > 0:
-            for row in rows:
-                result.write("history creator: ", row[0])
+            # for row in rows:
+            result.write("history creator: ", rows)
             result.write("")
         else:
             result.write("history not found.")
