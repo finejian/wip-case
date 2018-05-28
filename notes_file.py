@@ -2,7 +2,7 @@
 def split(filePath):
 
     f =  open(filePath, encoding="utf-8")
-    mails = f.read().split("whosetvianotes")
+    mails = f.read().split("\n\n\n\n\n\n\n")
     mailsLines = []
 
     # 把邮件分割成一行一行的数据
