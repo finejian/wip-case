@@ -4,7 +4,7 @@ import mdb_query as query
 
 def doQuery(func, args):
 
-    DBfile = r"D:\repo\python\wip-case\WIP.mdb"
+    DBfile = r"L:\SDC FIN\WIP transfer\WIP Record\Data\WIP.mdb"
     conn = pyodbc.connect(r"Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=" + DBfile + ";Uid=;Pwd=;")
     cursor = conn.cursor()
 
