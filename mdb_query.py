@@ -20,13 +20,19 @@ def queryHistories(cursor, args):
     return list(cursor.execute(query))
 
 def __historyCodes(cursor, code):
-    query = r"SELECT * FROM WIP WHERE `Code`='{0}';".format(code)
+    query = r"SELECT * FROM WIP WHERE `Code` LIKE '%{0}%';".format(code)
     return list(cursor.execute(query))
 
 
 def __hasRequestorDateTime(cursor, requestor, date, time):
     query = r"SELECT * FROM WIP WHERE `Requestor`='{0}' AND `Date`='{1}' AND `Time`='{2}';".format(requestor, date, time)
     return list(cursor.execute(query))
+
+def __isDate(date):
+    # 2018/05/28
+    # 2018/1/2
+    # 1/2/2018
+    return len(date.split("/")) == 3
 
 def insertCase(cursor, args):
     # requestor, date,    time,    subject, caseType, fromClient, fromJob, toClient, toJob,   createdBy
@@ -39,21 +45,21 @@ def insertCase(cursor, args):
 
     date, time, caseType, createdBy = args[1], args[2], args[4], args[9]
     historyCases = __historyCodes(cursor, code)
-    hasNew = False
+    status = ""
     newAssignedTo = ""
 
     for row in historyCases:
-        if row[13] == "New":
-            hasNew = True
+        if not __isDate(row[13]):
+            status = row[13]
             newAssignedTo = row[12]
             break
 
-    if hasNew:
-        print("code '{}', new assgin to '{}', already new assgined to '{}', wasn't do write.".format(code, createdBy, newAssignedTo))
+    if status != "":
+        print("code '{}', new assgin to '{}', already '{}' assgined to '{}', wasn't do write.".format(code, createdBy, status, newAssignedTo))
         return
     
-    if len(historyCases):
-        caseType = "{}{} {}".format(caseType, date, time)
+    if len(historyCases) > 0 :
+        code = "{}{} {}".format(code, date, time)
 
     argsColumns = "`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`From Client`,	`From Job`,	`To Client`, `To Job`,	`Code`,	`Created by`"
     argsValues = "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}'".format(args[0], args[1], args[2], args[3], caseType, args[5], args[6], args[7], args[8], code, args[9])
