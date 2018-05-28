@@ -103,8 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# notes
 *.notes
-
-# result
 *.result
+*.xlsm
+*.mdb
+*.accdb
+*.ini

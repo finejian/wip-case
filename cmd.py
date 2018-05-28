@@ -6,7 +6,7 @@ mailsLines = fl.split("notes_wait.notes")
 result = open("case.result", "w", encoding="utf-8")
 
 for i in range(len(mailsLines)):
-    result.write("mail {}: \n".format(i + 1))
+    result.write("# mail {}: \n".format(i + 1))
     mail.handle(result, mailsLines[i])
     result.write("\n\n")
 

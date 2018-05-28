@@ -1,0 +1,45 @@
+'Requestor'      : 'Angie AJ He'
+'Date'           : '2017/12/29'
+'Time'           : '15:17'
+'Subject'        : 'Time Transfer Request (via Notes)'
+'Type'           : 'T'
+'From Client'    : '06011286'
+'From Job'       : 'S004'
+'To Client'      : '00120105'
+'To Job'         : '0000'
+'Code'           : '06011286S004001201050000T'
+'Item'           : '1'
+'Reason'         : 'Wrong charge'
+'Created by'     : 'Catherine'
+'Finish Date'    : '2018/1/2'
+'Spending Time'  : '0'
+'Vocher No'      : 'CTU0382'
+'Remark'         : '4'
+'Office'         : 'PEK'
+'LOS'            : 'RA'
+'Segment'        : ''
+'Error Input'    : ''
+'Note'           : 'need PIC approve'
+'Checking By'    : 'Catherine'
+'Checking Result': 'Right'
+'Unqualify'      : ''
+
+
+"INSERT INTO WIP \
+        (`Requestor`,	`Date`,	`Time`,	`Subject`,	`Type`,	`From Client`,	`From Job`,	`To Client`,	`To Job`,	`Code`,	`Item`,	`Reason`, \
+	    `Created by`,	`Finish Date`,	`Spending Time`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Segment`,	`Error Input`,	`Note`, \
+	    `Checking By`,	`Checking Result`,	`Unqualify`) \
+        VALUES \
+        ('TEST test', '2017/12/29', '15:17',	'Time Transfer Request (via Notes)',	'T',	'06011286',	'S004',	'00120105',	'0000',	'06011286S004001201050111T',	'1',	'Wrong charge', \
+	    'Catherine',	'2018/1/2',	'0',	'CTU0382',	'4',	'PEK',	'RA',	'',	'',	'need PIC approve', \
+	    'Catherine',	'Right',	'')"
+
+
+
+'Requestor',	'Date',	'Time',	'Subject',	'Type',	'From Client',	'From Job',	'To Client',	'To Job',	'Code',	'Item',	'Reason', 
+'Created by',	'Finish Date',	'Spending Time',	'Vocher No',	'Remark',	'Office',	'LOS',	'Segment',	'Error Input',	'Note', 
+'Checking By',	'Checking Result',	'Unqualify'
+
+'Angie AJ He', '2017/12/29', '15:17',	'Time Transfer Request (via Notes)',	'T',	'06011286',	'S004',	'00120105',	'0000',	'06011286S004001201050000T',	'1',	'Wrong charge',
+'Catherine',	'2018/1/2',	'0',	'CTU0382',	'4',	'PEK',	'RA',	'',	'',	'need PIC approve',
+'Catherine',	'Right',	''

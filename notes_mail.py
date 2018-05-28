@@ -2,6 +2,7 @@ import notes_tools as tools
 import utils
 import mdb
 import mdb_query as query
+import result_writer as writer
 
 
 def handle(result, lines):
@@ -33,12 +34,12 @@ def handle(result, lines):
         if tc != "" and latestCreator == "":
             latestCreator = tc
 
-    result.write("%16s%s\n"%("posted from: ", postedFrom))
-    result.write("%16s%s\n"%("posted subjec: ", postedSubject))
-    result.write("%16s%s\n"%("posted time: ", postedDate))
-    result.write("%16s%s\n"%("first from: ", firstFrom))
-    result.write("%16s%s\n"%("first time: ", firstDate))
-    result.write("%16s%s\n"%("latest creator: ", latestCreator))
+    result.write("%16s %s\n"%(writer._PostedFrom, postedFrom))
+    result.write("%16s %s\n"%(writer._PostedSubjec, postedSubject))
+    result.write("%16s %s\n"%(writer._PostedTime, postedDate))
+    result.write("%16s %s\n"%(writer._FirstFrom, firstFrom))
+    result.write("%16s %s\n"%(writer._FirstTime, firstDate))
+    result.write("%16s %s\n"%(writer._LatestCreator, latestCreator))
     
     if latestCreator == "" and firstFrom != "" and firstDate != "":
         args = [firstFrom, firstDate]
@@ -53,5 +54,12 @@ def handle(result, lines):
             result.write("\n")
         else:
             result.write("history not found.\n")
+
+    result.write("%16s \n"%(writer._CaseType))
+    result.write("%16s \n"%(writer._FromClient))
+    result.write("%16s \n"%(writer._FromJob))
+    result.write("%16s \n"%(writer._ToClient))
+    result.write("%16s \n"%(writer._ToJob))
+    result.write("%16s \n"%(writer._CreatedBy))
 
 
