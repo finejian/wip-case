@@ -24,6 +24,10 @@ def __hasCode(cursor, code):
     return list(cursor.execute(query))
 
 
+def __hasRequestorDateTime(cursor, requestor, date, time):
+    query = r"SELECT * FROM WIP WHERE `Requestor`='{0}' AND `Date`='{1}' AND `Time`='{2}';".format(requestor, date, time)
+    return list(cursor.execute(query))
+
 def insertCase(cursor, args):
     # requestor, date,    time,    subject, caseType, fromClient, fromJob, toClient, toJob,   createdBy
     # args[0],   args[1], args[2], args[3], args[4],  args[5],    args[6], args[7],  args[8], args[9]
@@ -32,8 +36,14 @@ def insertCase(cursor, args):
         return
 
     code = "{1}{2}{3}{4}{0}".format(args[4] ,args[5], args[6], args[7], args[8])
-    if len(__hasCode(cursor, code)) > 0:
-        print("code '{}' not correct or existed, wasn't write".format(code))
+
+    # if len(__hasCode(cursor, code)) > 0:
+    #     print("code '{}' not correct or existed, wasn't write".format(code))
+    #     return
+
+    requestor, date, time = args[0],   args[1], args[2]
+    if len(__hasRequestorDateTime(cursor, requestor, date, time)) > 0:
+        print("requestor '{0}' datetime '{1} {2}' not correct or existed, wasn't write".format(requestor, date, time))
         return
 
     argsColumns = "`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`From Client`,	`From Job`,	`To Client`, `To Job`,	`Code`,	`Created by`"
