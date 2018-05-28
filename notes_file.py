@@ -10,7 +10,7 @@ def split(filePath):
     for mail in mails:
         if mail.strip() == "":
             continue
-        if mail.find("From:") == -1:
+        if mail.find("PostedDate:") == -1:
             continue
 
         lines = mail.split("\n")
