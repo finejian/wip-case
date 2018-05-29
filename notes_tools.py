@@ -26,37 +26,39 @@ def subject(line):
 
 
 def postedFrom(line):
-    if line.find(__from) == 0:
-        pfs = line[5:].strip().replace("CN=", "").split("/")
+    if line.startswith(__from):
+        pfs = line.replace(__from, "").strip().replace("CN=", "").split("/")
         if len(pfs) > 0:
             return pfs[0]
     return ""
 
 
 def postedDate(line):
-    if line.find(__postedDate) == 0:
-        return line[11:].strip()
+    if line.startswith(__postedDate):
+        return line.replace(__postedDate, "").strip()
     return ""
 
 
 def firstFromAndDate(line, dateLines):
     fr, fd = "", ""
-    if (line.find(__to) == 0 or line.find(__cc) == 0) and line.find(__finance) > 0:
+    if (line.startswith(__to) or line.startswith(__cc)) and line.find(__finance) > 0:
         for l in dateLines:
-            if l.find(__from) == 0:
-                fr = l[5:].strip()
-            if l.find(__Date) == 0:
-                fd = l[5:].strip()
+            if l.startswith(__from):
+                frs = l.replace(__from, "").strip().replace("CN=", "").split("/")
+                if len(frs) > 0:
+                    fr = frs[0]
+            if l.startswith(__Date):
+                fd = l.replace(__Date, "").strip()
     return fr, fd
 
 
 
 def teamCreator(lines):
-    if lines[0].find(__from) == 0 and lines[0].find(__finance) > 0:
-        sendBys = [l for l in lines if l.find(__sendBy) == 0]
+    if lines[0].startswith(__from) and lines[0].find(__finance) > 0:
+        sendBys = [l for l in lines if l.startswith(__sendBy)]
         if len(sendBys) == 0:
             return ""
-        return sendBys[0][8:].strip()
+        return sendBys[0].replace(__sendBy, "").strip()
     return ""
 
 
