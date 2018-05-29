@@ -26,6 +26,8 @@ def postedFromAndDate(lines):
     if line2.find(__postedDate) == 0:
         pf = line1[5:].strip()[3:]
         pd = line2[11:].strip()
+        # if pf.startWith("CN="):
+        #     pf = pf[3:]
     return pf, pd
 
 
