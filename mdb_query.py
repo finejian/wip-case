@@ -44,7 +44,7 @@ def insertCase(cursor, args):
         return
 
     # code = requestor + date + time + caseType
-    code = "{0}{1}{2}{3}".format(args[0] ,args[1], args[2], args[4])
+    code = "{0}  {1}{2}{3}".format(args[0] ,args[1], args[2], args[4])
 
     requestor, date, time, subject, caseType, createdBy = args[0], args[1], args[2], args[3], args[4], args[5]
     historyCases = __historyCases(cursor, requestor, date, time)

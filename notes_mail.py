@@ -21,9 +21,13 @@ def handle(result, lines):
         if ps != "" and postedSubject == "":
             postedSubject = ps
 
-        pf, pd = tools.postedFromAndDate(lines[i:i+2])
-        if pf != "" and pd != "":
-            postedFrom, postedDate = pf, pd
+        pf = tools.postedFrom(lines[i])
+        if pf != "":
+            postedFrom = pf
+            
+        pd = tools.postedDate(lines[i])
+        if pd != "":
+            postedDate = pd
 
         fr, fd = tools.firstFromAndDate(lines[i], lines[i-2:i+4])
         if fr != "" and fd != "":

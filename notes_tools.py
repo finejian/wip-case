@@ -25,17 +25,18 @@ def subject(line):
     return ""
 
 
-def postedFromAndDate(lines):
-    pf, pd = "", ""
-    if len(lines) != 2:
-        return pf, pd
-    line1, line2 = lines[0], lines[1]
-    if line2.find(__postedDate) == 0:
-        pf = line1[5:].strip()[3:]
-        pd = line2[11:].strip()
-        # if pf.startWith("CN="):
-        #     pf = pf[3:]
-    return pf, pd
+def postedFrom(line):
+    if line.find(__from) == 0:
+        pfs = line[5:].strip().replace("CN=", "").split("/")
+        if len(pfs) > 0:
+            return pfs[0]
+    return ""
+
+
+def postedDate(line):
+    if line.find(__postedDate) == 0:
+        return line[11:].strip()
+    return ""
 
 
 def firstFromAndDate(line, dateLines):
@@ -66,8 +67,22 @@ def teamName(n):
         return "{}{}".format(n[:1].upper(), n[1:].lower()) 
 
 
+def __testPostedFrom():
+    print(postedFrom("From:  CN=Geoffrey Wang/OU=CN/OU=ABAS/O=PwC"))
+
+
+def __testTeamName():
+    print("'c' convert to {}".format(teamName("c")))
+    print("'s' convert to {}".format(teamName("s")))
+    print("'l' convert to {}".format(teamName("l")))
+    print("'a' convert to {}".format(teamName("a")))
+    print("'ccc' convert to {}".format(teamName("ccc")))
+    print("'anY' convert to {}".format(teamName("anY")))
+    print("'Super' convert to {}".format(teamName("Super")))
+    print("'i' convert to {}".format(teamName("i")))
+    print("'iAcd' convert to {}".format(teamName("iAcd")))
+
+
 if __name__ == '__main__':
-    print(teamName("c"))
-    print(teamName("ccc"))
-    print(teamName("i"))
-    print(teamName("iAcd"))
+    # __testTeamName()
+    __testPostedFrom()

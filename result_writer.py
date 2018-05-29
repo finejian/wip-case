@@ -23,7 +23,7 @@ def doNewCase(lines):
     for line in lines:
         
         if line.find(_PostedFrom) > -1 and requestor == "":
-            requestor = line[16:].strip().split("/")[0]
+            requestor = line[16:].strip()
             
         if line.find(_PostedTime) > -1 and date == "":
             date = line[16:].strip().split(" ")[0]
