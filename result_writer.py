@@ -1,5 +1,6 @@
 import mdb
 import mdb_query as query
+import notes_tools as tools
 
 _PostedFrom = "posted from:"
 _PostedSubjec = "posted subjec:"
@@ -8,10 +9,6 @@ _FirstFrom = "first from:"
 _FirstTime = "first time:"
 _LatestCreator = "latest creator:"
 _CaseType = "type:"
-_FromClient = "from client:"
-_FromJob = "from job:"
-_ToClient = "to client:"
-_ToJob = "to job:"
 _CreatedBy = "created by:"
 
 
@@ -21,10 +18,6 @@ def doNewCase(lines):
     time = ""
     subject = ""
     caseType = ""
-    fromClient = ""
-    fromJob = ""
-    toClient = ""
-    toJob = ""
     createdBy = ""
  
     for line in lines:
@@ -42,20 +35,9 @@ def doNewCase(lines):
         if line.find(_CaseType) > -1 and caseType == "":
             caseType = line[16:].strip()
             
-        if line.find(_FromClient) > -1 and fromClient == "":
-            fromClient = line[16:].strip()
-            
-        if line.find(_FromJob) > -1 and fromJob == "":
-            fromJob = line[16:].strip()
-            
-        if line.find(_ToClient) > -1 and toClient == "":
-            toClient = line[16:].strip()
-            
-        if line.find(_ToJob) > -1 and toJob == "":
-            toJob = line[16:].strip()
-            
         if line.find(_CreatedBy) > -1 and createdBy == "":
             createdBy = line[16:].strip()
+            createdBy = tools.teamName(createdBy)
         
-    args = [requestor, date, time, subject, caseType, fromClient, fromJob, toClient, toJob, createdBy]
+    args = [requestor, date, time, subject, caseType, createdBy]
     mdb.doQuery(query.insertCase, args)

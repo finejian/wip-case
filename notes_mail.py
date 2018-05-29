@@ -56,10 +56,6 @@ def handle(result, lines):
             result.write("history not found.\n")
 
     result.write("%16s \n"%(writer._CaseType))
-    result.write("%16s \n"%(writer._FromClient))
-    result.write("%16s \n"%(writer._FromJob))
-    result.write("%16s \n"%(writer._ToClient))
-    result.write("%16s \n"%(writer._ToJob))
     result.write("%16s \n"%(writer._CreatedBy))
 
 

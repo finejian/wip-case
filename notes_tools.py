@@ -12,6 +12,13 @@ __subject = "Subject:"
 __finance = "SDC Finance WIP Transfer"
 
 
+__teamMapping = {
+    "c":"Catherine",
+    "l":"Louise",
+    "s":"Scott",
+    "a":"Amy",
+}
+
 def subject(line):
     if line.find(__subject) == 0:
         return line[8:].strip()
@@ -52,4 +59,15 @@ def teamCreator(lines):
     return ""
 
 
+def teamName(n):
+    try:
+        return __teamMapping[n.lower()[:1]]
+    except:
+        return "{}{}".format(n[:1].upper(), n[1:].lower()) 
 
+
+if __name__ == '__main__':
+    print(teamName("c"))
+    print(teamName("ccc"))
+    print(teamName("i"))
+    print(teamName("iAcd"))
