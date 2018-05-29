@@ -1,21 +1,23 @@
 
+
+#  多个分隔符，分割字符串
+def __splitMail(content):
+    return [x for x in content.split("\f") if x.strip() != "" and x.find("PostedDate:") > -1 ]
+
+
+# 分割字符串为行数据
+def __splitLines(content):
+    return [l.strip() for l in content.split("\n") if l.strip() != ""]
+
+
 def split(filePath):
 
     f =  open(filePath, encoding="utf-8")
-    mails = f.read().split("whosetvianotes")
+    mails = __splitMail(f.read())
     mailsLines = []
 
-    # 把邮件分割成一行一行的数据
-    # 并清理掉空行，仅保留去除前后空格的行内容
     for mail in mails:
-        if mail.strip() == "":
-            continue
-        if mail.find("From:") == -1:
-            continue
-
-        lines = mail.split("\n")
-        lines = [l.strip() for l in lines if l.strip() != ""]
-        mailsLines.append(lines)
+        mailsLines.append(__splitLines(mail))
 
     f.close()
 
