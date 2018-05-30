@@ -1,14 +1,15 @@
-import result_writer as writer
+import mdb
+import writer_case as case
 
-f = open("case.result")
+result = open("case.result")
+mails = result.read().split("# mail")
 
-mails = f.read().split("# mail")
+result.flush()
+result.close()
 
-f.flush()
-f.close()
 
+access = mdb.Access()
 print("start save new case.")
-
 index = 0
 
 for i in range(len(mails)):
@@ -17,5 +18,6 @@ for i in range(len(mails)):
         continue
     index += 1
     print("mail: {}".format(index))
-    writer.doNewCase(lines)
+    case.doNewCase(lines, access)
 
+access.close()
