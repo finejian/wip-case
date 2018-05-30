@@ -45,18 +45,27 @@ class Access:
             print("Error, code '{}', new assgin to '{}', already '{}' assgined to '{}', wasn't do write.\n".format(code, createdBy, status, newAssignedTo))
             return
 
-        # 拼装insert语句
-        argsColumns = "`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`Code`,	`Created by`"
-        argsValues = "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'".format(requestor, date, time, subject, caseType, code, createdBy)
+        requestor = requestor.replace("'", "\'\'")
+        subject = subject.replace("'", "\'\'")
 
-        otherColumns = "`From Client`,	`From Job`,	`To Client`, `To Job`,	`Item`,	`Reason`, `Finish Date`,	`Spending Time`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Segment`,	`Error Input`,	`Note`,	`Checking By`,	`Checking Result`,	`Unqualify`"
-        otherValues = "'',	'',	'',	'', 0,	'',	'New',	0,	'',	'',	'',	'',	'',	'',	'',	'',	'',	''"
+        # 拼装insert语句
+        argsColumns = r"`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`Code`,	`Created by`"
+        argsValues = r"'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'".format(requestor, date, time, subject, caseType, code, createdBy)
+
+        otherColumns = r"`From Client`,	`From Job`,	`To Client`, `To Job`,	`Item`,	`Reason`, `Finish Date`,	`Spending Time`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Segment`,	`Error Input`,	`Note`,	`Checking By`,	`Checking Result`,	`Unqualify`"
+        otherValues = r"'',	'',	'',	'', 0,	'',	'New',	0,	'',	'',	'',	'',	'',	'',	'',	'',	'',	''"
 
         query = r"INSERT INTO WIP ({0}, {1}) VALUES ({2}, {3});".format(argsColumns, otherColumns, argsValues, otherValues)
 
         # 执行写入动作
         cursor = self.conn.cursor()
-        cursor.execute(query)
+        try:
+            cursor.execute(query)
+        except pyodbc.ProgrammingError as err:
+            print("Error, code '{}', assgin to '{}' failure, wasn't do write.\n".format(code, createdBy))
+            print("Query is {}".format(query))
+            print("Reason is {}".format(err))
+
         cursor.commit()
         cursor.close()
         print("Success, code '{}' assign to '{}'.\n".format(code, createdBy))
