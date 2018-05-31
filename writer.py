@@ -1,7 +1,7 @@
 import mdb
 import writer_case as case
 
-result = open("case.result")
+result = open("case.result", encoding="utf-8")
 mails = result.read().split("# mail")
 
 result.flush()
