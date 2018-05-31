@@ -26,7 +26,7 @@ class Access:
 
 
     def __historyCases__(self, requestor, date, time):
-        query = r"SELECT * FROM WIP WHERE `Requestor` LIKE '%{0}%' AND `Date`='{1}' AND `Time`='{2}';".format(requestor, date, time)
+        query = r"SELECT * FROM WIP WHERE `Requestor` LIKE '%{0}%' AND `Date`='{1}' AND `Time` LIKE '{2}%';".format(requestor, date, time)
 
         cursor = self.conn.cursor()
         rows = list(cursor.execute(query))
