@@ -31,9 +31,19 @@ def __splitMail__(result, access, lines):
         if tc != "" and latestCreator == "":
             latestCreator = tc
 
+    # 查询邮件当前分给谁了
+    postedCreator = ""
+    rows = access.queryHistories(postedFrom, postedDate)
+    if len(rows) > 0:
+        if postedCreator != "":
+            postedCreator += "、"
+        for row in rows:
+            postedCreator += row[0]
+
     result.write("%16s %s\n"%(case.__PostedFrom__, postedFrom))
     result.write("%16s %s\n"%(case.__PostedSubjec__, postedSubject))
     result.write("%16s %s\n"%(case.__PostedTime__, postedDate))
+    result.write("%16s %s\n"%(case.__PostedCreator__, postedCreator))
     result.write("%16s %s\n"%(case.__FirstFrom__, firstFrom))
     result.write("%16s %s\n"%(case.__FirstTime__, firstDate))
     result.write("%16s %s\n"%(case.__LatestCreator__, latestCreator))

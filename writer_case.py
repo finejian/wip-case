@@ -2,6 +2,7 @@
 __PostedFrom__ = "posted from:"
 __PostedSubjec__ = "posted subjec:"
 __PostedTime__ = "posted time:"
+__PostedCreator__ = "posted creator:"
 __FirstFrom__ = "first from:"
 __FirstTime__ = "first time:"
 __LatestCreator__ = "latest creator:"

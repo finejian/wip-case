@@ -11,12 +11,12 @@ class Access:
         self.conn.close()
 
     
-    def queryHistories(self, who, date):
+    def queryHistories(self, requestor, date):
         query = r"SELECT `Created by` FROM WIP WHERE 1=1 "
-        if len(who) > 0:
-            query += " AND `Requestor` LIKE '%" + who + "%'"
-        if len(date) == 16:
-            query += " AND `Time` = '" + date[11:] + "'"
+        if len(requestor) > 0:
+            query += " AND `Requestor` LIKE '%" + requestor + "%'"
+        if len(date) >= 16:
+            query += " AND `Time` = '" + date[11:16] + "'"
         query += ";"
 
         cursor = self.conn.cursor()
