@@ -52,8 +52,8 @@ class Access:
         argsColumns = r"`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`Code`,	`Created by`"
         argsValues = r"'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'".format(requestor, date, time, subject, caseType, code, createdBy)
 
-        otherColumns = r"`From Client`,	`From Job`,	`To Client`, `To Job`,	`Item`,	`Reason`, `Finish Date`,	`Spending Time`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Segment`,	`Error Input`,	`Note`,	`Checking By`,	`Checking Result`,	`Unqualify`"
-        otherValues = r"'',	'',	'',	'', 0,	'',	'New',	0,	'',	'',	'',	'',	'',	'',	'',	'',	'',	''"
+        otherColumns = r"`From Client`,	`From Job`,	`To Client`, `To Job`,	`Item`,	`Reason`, `Finish Date`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Note`"
+        otherValues = r"'',         	'',     	'',        	'',          0, 	'',     	'New',      	'',          	'',     	'',     	'', 	''"
 
         query = r"INSERT INTO WIP ({0}, {1}) VALUES ({2}, {3});".format(argsColumns, otherColumns, argsValues, otherValues)
 
