@@ -6,6 +6,8 @@ def __splitMail__(result, access, lines):
     postedFrom, postedSubject, postedDate = "", "", ""
     firstFrom, firstDate, latestCreator = "", "", ""
 
+    isFromSDC = tools.isFromSDC(lines)
+
     for i in range(len(lines)):
         if lines[i].strip() == "":
             continue
@@ -14,7 +16,11 @@ def __splitMail__(result, access, lines):
         if ps != "" and postedSubject == "":
             postedSubject = ps
 
-        pf = tools.postedFrom(lines[i])
+        pf = ""
+        if isFromSDC:
+            pf = tools.principal(lines[i])
+        else:
+            pf = tools.postedFrom(lines[i])
         if pf != "" and postedFrom == "":
             postedFrom = pf
             

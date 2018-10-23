@@ -1,6 +1,8 @@
 import datetime
 
 
+__principal__ = "Principal:"
+__sdc__ = "SDC"
 __to__ = "To:"
 __cc__ = "Cc:"
 __subject__ = "Subject:"
@@ -10,6 +12,20 @@ __sendBy__ = "Sent by:"
 __Date__ = "Date:"
 __postedDate__ = "PostedDate:"
 __finance__ = "SDC Finance WIP Transfer"
+
+
+def isFromSDC(lines):
+    result = False
+    for i in range(len(lines)):
+        if lines[i].find(__principal__) == 0 and lines[i].find(__sdc__) > 0:
+            result=True
+    return result
+
+
+def principal(line):
+    if line.startswith(__principal__):
+        return line.replace(__principal__, "").strip()
+    return ""
 
 
 def subject(line):
