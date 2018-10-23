@@ -14,6 +14,29 @@ __deliveredDate__ = "DeliveredDate:"
 __finance__ = "SDC Finance WIP Transfer"
 
 
+__wrote1__ = "> wrote:"
+__wrote2__ = "> 写道："
+
+
+def isWrote(lines):
+    result = False
+    for i in range(len(lines)):
+        if lines[i].find(__wrote1__) > 0 or lines[i].find(__wrote2__) > 0:
+            result=True
+    return result
+
+
+def wrote(line):
+    result = ""
+    if line.find(__wrote1__) > 0:
+        result = line.split(",")[2].strip()
+    if line.find(__wrote2__) > 0:
+        result = line.split("，")[2].strip()
+    if result != "":
+        return result.split("<")[0].strip()
+    return ""
+
+
 def isFromSDC(lines):
     result = False
     for i in range(len(lines)):

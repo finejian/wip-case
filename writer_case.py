@@ -1,6 +1,6 @@
 
 __PostedFrom__ = "posted from:"
-__PostedSubjec__ = "posted subjec:"
+__PostedSubject__ = "posted subject:"
 __PostedTime__ = "posted time:"
 __PostedCreator__ = "posted creator:"
 __FirstFrom__ = "first from:"
@@ -38,7 +38,7 @@ def doNewCase(lines, access):
             date = line[16:].strip().split(" ")[0]
             time = line[16:].strip().split(" ")[1][:5]
             
-        if line.find(__PostedSubjec__) > -1 and subject == "":
+        if line.find(__PostedSubject__) > -1 and subject == "":
             subject = line[16:].strip()
             
         if line.find(__CaseType__) > -1 and caseType == "":

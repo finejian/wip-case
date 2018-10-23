@@ -7,23 +7,29 @@ def __splitMail__(result, access, lines):
     firstFrom, firstDate, latestCreator = "", "", ""
 
     isFromSDC = tools.isFromSDC(lines)
+    isWrote = tools.isWrote(lines)
 
     for i in range(len(lines)):
         if lines[i].strip() == "":
             continue
 
+        # 邮件主题
         ps = tools.subject(lines[i])
         if ps != "" and postedSubject == "":
             postedSubject = ps
 
+        # posted from 发件人
         pf = ""
         if isFromSDC:
             pf = tools.principal(lines[i])
+        elif isWrote:
+            pf = tools.wrote(lines[i])
         else:
             pf = tools.postedFrom(lines[i])
         if pf != "" and postedFrom == "":
             postedFrom = pf
-            
+
+        # posted time 发送时间
         pd = tools.deliveredDate(lines[i])
         if pd != "" and postedDate == "":
             postedDate = pd
@@ -47,7 +53,7 @@ def __splitMail__(result, access, lines):
             postedCreator += row[0]
 
     result.write("%16s %s\n"%(case.__PostedFrom__, postedFrom))
-    result.write("%16s %s\n"%(case.__PostedSubjec__, postedSubject))
+    result.write("%16s %s\n"%(case.__PostedSubject__, postedSubject))
     result.write("%16s %s\n"%(case.__PostedTime__, postedDate))
     result.write("%16s %s\n"%(case.__PostedCreator__, postedCreator))
     result.write("%16s %s\n"%(case.__FirstFrom__, firstFrom))
