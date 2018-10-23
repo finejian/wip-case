@@ -65,7 +65,7 @@ def __splitMail__(result, access, lines):
         else:
             result.write("not found history case.\n")
 
-    result.write("%16s \n"%(case.__CaseType__))
+    result.write("%16s %s\n"%(case.__CaseType__, "T"))
     result.write("%16s \n"%(case.__CreatedBy__))
 
 
