@@ -18,23 +18,21 @@ __wrote1__ = "> wrote:"
 __wrote2__ = "> 写道："
 
 
-def isWrote(lines):
-    result = False
+def postedHistory(lines):
+    posted, time = "", ""
     for i in range(len(lines)):
-        if lines[i].find(__wrote1__) > 0 or lines[i].find(__wrote2__) > 0:
-            result=True
-    return result
-
-
-def wrote(line):
-    result = ""
-    if line.find(__wrote1__) > 0:
-        result = line.split(",")[2].strip()
-    if line.find(__wrote2__) > 0:
-        result = line.split("，")[2].strip()
-    if result != "":
-        return result.split("<")[0].strip()
-    return ""
+        line = lines[i]
+        if line.find(__wrote1__) > 0 or line.find(__wrote2__) > 0:
+            if line.find(__wrote1__) > 0:
+                posted = line.split(",")[2].strip()
+                time = line.split(",")[1].strip()
+                time = time.replace("at", "").strip()
+            if line.find(__wrote2__) > 0:
+                posted = line.split("，")[2].strip()
+                time = line.split("，")[1].strip()
+            if posted != "":
+                posted = posted.split("<")[0].strip()
+    return posted, time
 
 
 def isFromSDC(lines):

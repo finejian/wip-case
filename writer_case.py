@@ -1,11 +1,18 @@
 
-__PostedFrom__ = "posted from:"
 __PostedSubject__ = "posted subject:"
+__PostedFrom__ = "posted from:"
 __PostedTime__ = "posted time:"
 __PostedCreator__ = "posted creator:"
+
+__PostedHistory__ = "posted history:"
+__PostedHistoryTime__ = "history time:"
+__PostedHistoryCreator__ = "history creator:"
+
 __FirstFrom__ = "first from:"
 __FirstTime__ = "first time:"
-__LatestCreator__ = "latest creator:"
+__SentBy__ = "sent by:"
+__FirstCreator__ = "first creator:"
+
 __CaseType__ = "type:"
 __CreatedBy__ = "created by:"
 

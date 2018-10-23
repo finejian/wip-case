@@ -20,7 +20,9 @@ for i in range(len(mails)):
     # 如果当前邮件已经分配过了，就跳过不执行
     hasPostedCreator = False
     for l in lines:
-        if l.find(case.__PostedCreator__) > 0 and l.strip() == "":
+        if l.find(case.__PostedCreator__) >= 0 and l.strip() == "":
+            hasPostedCreator = True
+        if l.find(case.__PostedHistoryCreator__) >= 0 and l.strip() == "":
             hasPostedCreator = True
     if hasPostedCreator: continue
 

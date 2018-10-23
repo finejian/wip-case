@@ -17,6 +17,11 @@ class Access:
             query += " AND `Requestor` LIKE '%" + requestor + "%'"
         if len(date) >= 16:
             query += " AND `Time` = '" + date[11:16] + "'"
+            query += " AND `Date` = #" + date[:10] + "#"
+        if len(date) == 5:
+            query += " AND `Time` = '" + date + "'"
+        if date.find("上午") >= 0 or date.find("下午") >= 0:
+            query += " AND `Time` LIKE '%" + date.strip()[3:] + "%'"
         query += ";"
 
         cursor = self.conn.cursor()
