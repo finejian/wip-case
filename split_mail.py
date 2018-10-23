@@ -24,7 +24,7 @@ def __splitMail__(result, access, lines):
         if pf != "" and postedFrom == "":
             postedFrom = pf
             
-        pd = tools.postedDate(lines[i])
+        pd = tools.deliveredDate(lines[i])
         if pd != "" and postedDate == "":
             postedDate = pd
 

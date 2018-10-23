@@ -10,7 +10,7 @@ __from__ = "From:"
 __sendTo__ = "SendTo:"
 __sendBy__ = "Sent by:"
 __Date__ = "Date:"
-__postedDate__ = "PostedDate:"
+__deliveredDate__ = "DeliveredDate:"
 __finance__ = "SDC Finance WIP Transfer"
 
 
@@ -42,9 +42,9 @@ def postedFrom(line):
     return ""
 
 
-def postedDate(line):
-    if line.startswith(__postedDate__):
-        return line.replace(__postedDate__, "").strip()
+def deliveredDate(line):
+    if line.startswith(__deliveredDate__):
+        return line.replace(__deliveredDate__, "").strip()
     return ""
 
 
