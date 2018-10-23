@@ -26,7 +26,7 @@ class Access:
 
 
     def __historyCases__(self, requestor, date, time):
-        query = r"SELECT * FROM WIP WHERE `Requestor` LIKE '%{0}%' AND `Date`='{1}' AND `Time` LIKE '{2}%';".format(requestor, date, time)
+        query = r"SELECT * FROM WIP WHERE `Requestor` LIKE '%{0}%' AND `Date`=#{1}# AND `Time` LIKE '{2}%';".format(requestor, date, time)
 
         cursor = self.conn.cursor()
         rows = list(cursor.execute(query))
@@ -49,13 +49,10 @@ class Access:
         subject = subject.replace("'", "\'\'")
 
         # 拼装insert语句
-        argsColumns = r"`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`,	`Code`,	`Created by`"
-        argsValues = r"'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}'".format(requestor, date, time, subject, caseType, code, createdBy)
+        argsColumns = r"`Requestor`,	`Date`,	`Time`,	`Subject`, `Type`, `From Client`,	`From Job`,	`To Client`, `To Job`,	`Code`,	`Item`,	`Reason`, `Created by`, `Finish Date`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`code item`,	`Note`"
+        argsValues = r"'{0}',           #{1}#,  '{2}',  '{3}',      '{4}',  '',         	'',     	'',        	 '',        '{5}',  0,      '',       '{6}',     	'New',      	'',          	'',     	'',     	'', 	'', 	        ''".format(requestor, date, time, subject, caseType, code, createdBy)
 
-        otherColumns = r"`From Client`,	`From Job`,	`To Client`, `To Job`,	`Item`,	`Reason`, `Finish Date`,	`Vocher No`,	`Remark`,	`Office`,	`LOS`,	`Note`"
-        otherValues = r"'',         	'',     	'',        	'',          0, 	'',     	'New',      	'',          	'',     	'',     	'', 	''"
-
-        query = r"INSERT INTO WIP ({0}, {1}) VALUES ({2}, {3});".format(argsColumns, otherColumns, argsValues, otherValues)
+        query = r"INSERT INTO WIP ({0}) VALUES ({1});".format(argsColumns, argsValues)
 
         # 执行写入动作
         cursor = self.conn.cursor()
