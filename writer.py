@@ -1,6 +1,7 @@
 import mdb
-import writer_case as case
+import notes
 
+# 读取邮件拆分结果
 result = open("case.result", encoding="utf-8")
 mails = result.read().split("# mail")
 
@@ -20,14 +21,18 @@ for i in range(len(mails)):
     # 如果当前邮件已经分配过了，就跳过不执行
     hasPostedCreator = False
     for l in lines:
-        if l.find(case.__PostedCreator__) >= 0 and l.strip() == "":
+        if l.find("posted creator:") >= 0 and l.strip() == "":
             hasPostedCreator = True
-        if l.find(case.__PostedHistoryCreator__) >= 0 and l.strip() == "":
+        if l.find("history creator:") >= 0 and l.strip() == "":
             hasPostedCreator = True
     if hasPostedCreator: continue
 
     index += 1
     print("mail: {}".format(index))
-    case.doNewCase(lines, access)
+
+    # 执行写入
+    r = notes.NotesResult()
+    r.format(lines)
+    access.insertCase(r.formatRequestor, r.formatDate, r.formatTime, r.formatSubject, r.formatCaseType, r.formatCreatedBy)
 
 access.close()
