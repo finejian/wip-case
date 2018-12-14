@@ -23,7 +23,7 @@ __teamMapping__ = {
     "a":"Amy",
     "j":"Jamie",
     "y":"Yuanhui",
-    "d":"Lydia",
+    "t":"Lei",
 }
 
 
