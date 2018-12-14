@@ -111,3 +111,5 @@ venv.bak/
 *.ini
 
 ./data
+leave.path
+mdb.path
