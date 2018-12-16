@@ -113,3 +113,5 @@ venv.bak/
 ./data
 leave.path
 mdb.path
+*.xlsx
+*.xls
