@@ -72,6 +72,54 @@ class Access:
         cursor.close()
         print("Success, code '{}' assign to '{}'.\n".format(code, createdBy))
 
+    # 统计某人一些日期的case数量
+    def memberDaysCase(self, creator, days):
+        cases = {}
+        if len(days) == 0: return cases
+        for day in days:
+            cases[day] = 0
+
+        daysStr = ""
+        for day in days: daysStr += ", #%s#"%(day)
+        daysStr = daysStr[1:]
+
+        query = r"SELECT `Created by`, `Date`, COUNT(*) FROM (SELECT `Created by`, `Date`, `Time`, `Requestor`,`Subject`, COUNT(*) FROM WIP WHERE `Created by` = '"+ creator +"' AND `Date` IN ("+ daysStr +") GROUP BY `Created by`, `Date`, `Time`,`Requestor`,`Subject`) GROUP BY `Created by`, `Date`;"
+        cursor = self.conn.cursor()
+        rows = list(cursor.execute(query))
+        cursor.close()
+
+        for row in rows:
+            name = row[0].strip()
+            day = row[1].strftime('%Y-%m-%d')
+            if name != "": cases[day] = row[2]
+
+        for day in days:
+            try: cases[day] 
+            except Exception: cases[day] = 0
+        return cases
+
+    # 统计某人一些日期的case数量
+    def daysTotalCase(self, days):
+        cases = {}
+        if len(days) == 0: return cases
+        for day in days:
+            cases[day] = 0
+
+        daysStr = ""
+        for day in days: daysStr += ", #%s#"%(day)
+        daysStr = daysStr[1:]
+
+        query = r"SELECT `Created by`, `Date`, COUNT(*) FROM (SELECT `Created by`, `Date`, `Time`, `Requestor`,`Subject`, COUNT(*) FROM WIP WHERE `Date` IN ("+ daysStr +") GROUP BY `Created by`, `Date`, `Time`,`Requestor`,`Subject`) GROUP BY `Created by`, `Date`;"
+        cursor = self.conn.cursor()
+        rows = list(cursor.execute(query))
+        cursor.close()
+
+        for row in rows:
+            name = row[0].strip()
+            day = row[1].strftime('%Y-%m-%d')
+            if name != "": cases[day] += row[2]
+        return cases
+
 
 def __test__():
     acc = Access()
@@ -79,8 +127,13 @@ def __test__():
     rows = acc.queryHistories("Angie AJ He", "2017/12/29 15:17")
     print("queryHistories result count: ", len(rows))
     print("result: ", rows)
-    acc.close()
 
+    member = "Catherine"
+    case = acc.memberDaysCase(member, ["2018-11-02", "2018-11-03", "2018-11-04", "2018-11-05"])
+    print(member, "days case: ", case)
+    case = acc.daysTotalCase(["2018-11-02", "2018-11-03", "2018-11-04", "2018-11-05"])
+    print("days total case: ", case)
+    acc.close()
 
 if __name__ == '__main__':
     __test__()

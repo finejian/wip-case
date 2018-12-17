@@ -51,3 +51,30 @@
 
 'Created by',	'Finish Date',	'Vocher No',	'Remark',	'Office',	'LOS',	'code item',	'Note', 
 '13',			'14',			'15',			'16',		'17',		'18',	'19',			'19', 
+
+
+所有人一段时间case统计
+SELECT `Created by`,`Date`,COUNT(*)
+FROM
+(
+    SELECT `Date`,`Time`,`Created by`,`Requestor`,`Subject`,COUNT(*)
+    FROM WIP
+    WHERE `Date` BETWEEN #2018/11/13# AND #2018/11/19#
+    GROUP BY `Date`,`Time`,`Created by`,`Requestor`,`Subject`
+)
+GROUP BY `Date`,`Created by`;
+
+
+所有人某天case统计
+SELECT `Created by`, `Date`, COUNT(*)
+FROM
+(
+    SELECT `Created by`, `Date`, `Time`, `Requestor`,`Subject`,COUNT(*)
+    FROM WIP
+    WHERE `Created by` = 'Catherine' AND `Date` IN (#2018/11/19#)
+    GROUP BY `Created by`, `Date`, `Time`,`Requestor`,`Subject`
+)
+GROUP BY `Created by`, `Date`;
+
+查询某天case总数
+SELECT COUNT(*) FROM WIP WHERE `Date` = #2018/11/19#
