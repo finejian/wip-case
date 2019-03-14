@@ -3,6 +3,8 @@ import datetime
 
 __principal__ = "Principal:"
 __sdc__ = "SDC"
+__weSupport__ = "WeSupport"
+__central__ = "Central"
 __to__ = "To:"
 __cc__ = "Cc:"
 __subject__ = "Subject:"
@@ -38,7 +40,7 @@ def postedHistory(lines):
 def isFromSDC(lines):
     result = False
     for i in range(len(lines)):
-        if lines[i].find(__principal__) == 0 and lines[i].find(__sdc__) > 0:
+        if lines[i].find(__principal__) == 0 and (lines[i].find(__sdc__) > 0 or lines[i].find(__weSupport__) > 0 or lines[i].find(__central__) > 0):
             result=True
     return result
 
