@@ -23,13 +23,22 @@ class Leave:
             if day_str.strip() != "":
                 self.days.append(day_str)
 
-        # 整理出所有人名
-        self.members = []
+        # 整理出人名字典
+        membersDict = {}
         for i in range(self.sheet.ncols - 1):
             member = self.sheet.cell(0, i+1).value
             member = member.strip().lower()
             if member != "" and not isQuit(member):
+                membersDict[member] = member
+
+        # 对所有人名进行排序
+        self.members = []
+        for member in ["amy", "louise"]:
+            if member in membersDict.keys():
                 self.members.append(member)
+                del membersDict[member]
+        for member in membersDict.keys() : self.members.append(member)
+
 
     # 某天的在多少行
     def dayIndex(self, day):
