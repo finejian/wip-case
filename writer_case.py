@@ -58,6 +58,16 @@ def doNewCase(lines, access):
     access.insertCase(requestor, date, time, subject, caseType, createdBy)
 
 
+def membersNewCaseCount(lines):
+    date, createdBy = "", ""
+    for line in lines:
+        if line.find(__PostedTime__) > -1 and date == "":
+            date = line[16:].strip().split(" ")[0]
+        if line.find(__CreatedBy__) > -1 and createdBy == "":
+            createdBy = __teamName__(line[16:].strip())
+            createdBy = createdBy.strip().lower()
+    return date, createdBy
+
 def __testTeamName__():
     print("'c' convert to {}".format(__teamName__("c")))
     print("'s' convert to {}".format(__teamName__("s")))

@@ -3,8 +3,7 @@ import xlwt
 from datetime import date,datetime
 
 def isQuit(member):
-    member = member.strip().lower()
-    return member == "yuanhui" or member == "jamie" or member == "lydia"
+    return member in ["yuanhui", "jamie", "lydia"]
 
 class Leave:
     def __init__(self):
@@ -33,10 +32,10 @@ class Leave:
 
         # 对所有人名进行排序
         self.members = []
-        for member in ["amy", "louise"]:
-            if member in membersDict.keys():
-                self.members.append(member)
-                del membersDict[member]
+        # for member in ["amy", "catherine", "lei", "louise", "scott"]:
+        #     if member in membersDict.keys():
+        #         self.members.append(member)
+        #         del membersDict[member]
         for member in membersDict.keys() : self.members.append(member)
 
 

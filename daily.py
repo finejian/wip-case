@@ -2,12 +2,13 @@ import leave
 import mdb
 import time
 import datetime
+import writer
 
 totalDay = 7
 workHour = 8
 
 #           name total rTotal day1 day2 day3 day4 day5 day6 day7 
-formater = "%10s %5s   %5s    %4s  %5s  %5s  %5s  %5s  %5s  %5s"
+formater = "%10s %5s   %5s    %4s  %5s  %5s  %5s  %5s  %5s  %5s  %5s"
 
 # 生成目标日期
 days = []
@@ -20,8 +21,12 @@ for i in reversed(range(totalDay)):
 acc = mdb.Access()
 lea = leave.Leave()
 
+# 计算当前case分配下来后每个人预估的
+pvDate, pvTotalCase, memberCasesCounts = writer.countNewCase()
+pvDate = pvDate.replace("/", "-")
+
 day1, day2, day3, day4, day5, day6, day7 = days[0], days[1], days[2], days[3], days[4], days[5], days[6]
-print(formater%("name", "total", "rTotal", day1[5:], day2[5:], day3[5:], day4[5:], day5[5:], day6[5:], day7[5:]))
+print(formater%("name", "total", "rTotal", day1[5:], day2[5:], day3[5:], day4[5:], day5[5:], day6[5:], day7[5:],pvDate[5:]+"-pv"))
 
 # 所有人每天工作小时总数
 totalHours = lea.daysTotalHour(days)
@@ -39,8 +44,14 @@ for member in lea.members:
     rTotal = total
     for date in days: rTotal += leaves[date]*(totalCases[date]/totalHours[date])
 
+    # 每天预分配case后每个人的预估case数量
+    pvCase = 0
+    pvPerHourCase = ((totalCases[pvDate]+pvTotalCase)/totalHours[pvDate])
+    if leaves[pvDate] >= 8: pvCase = pvPerHourCase*8
+    else: pvCase = (cases[pvDate] + memberCasesCounts[member])/(8-leaves[pvDate])*8
+
     # 打印结果
-    print(formater%(member, total, "{:.0f}".format(rTotal), cases[day1], cases[day2], cases[day3], cases[day4], cases[day5], cases[day6], cases[day7]))
+    print(formater%(member, total, "{:.0f}".format(rTotal), cases[day1], cases[day2], cases[day3], cases[day4], cases[day5], cases[day6], cases[day7], "{:.0f}".format(pvCase)))
     
 acc.close()
 
