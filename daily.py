@@ -40,7 +40,7 @@ for member in lea.members:
     for date in days: rTotal += leaves[date]*(totalCases[date]/totalHours[date])
 
     # 打印结果
-    print(formater%(member, total, "{:.2f}".format(rTotal), cases[day1], cases[day2], cases[day3], cases[day4], cases[day5], cases[day6], cases[day7]))
+    print(formater%(member, total, "{:.0f}".format(rTotal), cases[day1], cases[day2], cases[day3], cases[day4], cases[day5], cases[day6], cases[day7]))
     
 acc.close()
 
