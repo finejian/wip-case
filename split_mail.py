@@ -37,7 +37,7 @@ def __splitMail__(result, access, lines):
             firstFrom, firstDate = fr, tools.formatDatetime(fd)
 
 
-        tc = tools.sendBy(lines[i:i+5])
+        tc = tools.sendBy(lines[i:i+6])
         if tc != "" and sentBy == "":
             sentBy = tc
 
