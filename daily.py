@@ -48,6 +48,7 @@ for member in lea.members:
     pvCase = 0
     pvPerHourCase = ((totalCases[pvDate]+pvTotalCase)/totalHours[pvDate])
     if leaves[pvDate] >= 8: pvCase = pvPerHourCase*8
+    elif member not in memberCasesCounts: pvCase = cases[pvDate]/(8-leaves[pvDate])*8
     else: pvCase = (cases[pvDate] + memberCasesCounts[member])/(8-leaves[pvDate])*8
 
     # 打印结果
