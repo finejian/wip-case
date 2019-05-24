@@ -40,14 +40,16 @@ def postedHistory(lines):
 def isFromSDC(lines):
     result = False
     for i in range(len(lines)):
-        if lines[i].find(__principal__) == 0 and (lines[i].find(__sdc__) > 0 or lines[i].find(__weSupport__) > 0 or lines[i].find(__central__) > 0):
+        if lines[i].find(__principal__) >= 0 and (lines[i].find(__sdc__) > 0 or lines[i].find(__weSupport__) > 0 or lines[i].find(__central__) > 0):
             result=True
     return result
 
 
 def principal(line):
-    if line.startswith(__principal__):
-        return line.replace(__principal__, "").strip()
+    if line.find(__principal__) >= 0:
+        arr = line.split(__principal__)
+        if len(arr) > 1:
+            return arr[1].strip().replace("  ", " ")
     return ""
 
 
@@ -98,8 +100,16 @@ def sendBy(lines):
 __formater_mdy_hm = r"%d/%m/%Y %H:%M"
 __formater_dmy_hm = r"%m/%d/%Y %H:%M"
 __formater_ymd_hm = r"%Y/%m/%d %H:%M"
+__formater_ymd_hm2 = r"%Y-%m-%d %H:%M"
 
 def formatDatetime(dt):
+    dts = dt.split("-")
+    if len(dts) == 3:
+        try:
+            return datetime.datetime.strptime(dt, __formater_ymd_hm2).strftime(__formater_ymd_hm)
+        except:
+            return ""
+
     dts = dt.split("/")
     if len(dts) != 3:
         return ""

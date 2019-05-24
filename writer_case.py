@@ -18,7 +18,7 @@ __CreatedBy__ = "created by:"
 
 __teamMapping__ = {
     "c":"Catherine",
-    "l":"Louise",
+    "q":"Qing",
     "s":"Scott",
     "a":"Amy",
     "j":"Jamie",
