@@ -21,8 +21,8 @@ __teamMapping__ = {
     "q":"Qing",
     "s":"Scott",
     "a":"Amy",
-    "j":"Jamie",
-    "y":"Yuanhui",
+    "d":"Cloud",
+    "g":"Gavin",
     "t":"Lei",
 }
 

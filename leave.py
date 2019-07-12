@@ -94,7 +94,7 @@ if __name__ == '__main__':
     l = Leave()
     print("members: ", l.members)
     member = "catherine"
-    print(member, "leave: ", l.memberDaysLeave(member, ['2018-11-15', '2018-11-16']))
-    print("all member total leave: ", l.daysTotalLeave(['2018-11-15', '2018-11-16']))
-    print("all member total hour: ", l.daysTotalHour(['2018-11-15', '2018-11-16']))
+    print(member, "leave: ", l.memberDaysLeave(member, ['2019-06-06', '2019-06-07']))
+    print("all member total leave: ", l.daysTotalLeave(['2019-06-06', '2019-06-07']))
+    print("all member total hour: ", l.daysTotalHour(['2019-06-06', '2019-06-07']))
  
