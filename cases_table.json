@@ -1,0 +1,17 @@
+CREATE TABLE "wip_cases" (
+"id"  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+"posted_from"  TEXT,
+"created_by"  TEXT,
+"status"  TEXT,
+"posted_subject"  TEXT,
+"posted_time"  TEXT,
+"posted_creator"  TEXT,
+"posted_history"  TEXT,
+"history_time"  TEXT,
+"history_creator"  TEXT,
+"first_from"  TEXT,
+"first_time"  TEXT,
+"sent_by"  TEXT,
+"first_creator"  TEXT,
+"type"  TEXT
+);

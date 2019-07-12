@@ -2,7 +2,7 @@ import split_tools as tools
 import writer_case as case
 
 
-def __splitMail__(result, access, lines):
+def __splitMail__(dbConn, access, lines):
     postedFrom, postedSubject, postedDate = "", "", ""
     firstFrom, firstDate, sentBy = "", "", ""
 
@@ -62,17 +62,6 @@ def __splitMail__(result, access, lines):
             if postedHistoryCreator != "" and row[0] != "":
                 postedHistoryCreator += "、"
             postedHistoryCreator += row[0]
-
-    result.write("%16s %s\n"%(case.__PostedFrom__, postedFrom))
-    result.write("%16s %s\n"%(case.__PostedSubject__, postedSubject))
-    result.write("%16s %s\n"%(case.__PostedTime__, postedDate))
-    result.write("%16s %s\n"%(case.__PostedCreator__, postedCreator))
-    result.write("%16s %s\n"%(case.__PostedHistory__, postedHistory))
-    result.write("%16s %s\n"%(case.__PostedHistoryTime__, postedHistoryTime))
-    result.write("%16s %s\n"%(case.__PostedHistoryCreator__, postedHistoryCreator))
-    result.write("%16s %s\n"%(case.__FirstFrom__, firstFrom))
-    result.write("%16s %s\n"%(case.__FirstTime__, firstDate))
-    result.write("%16s %s\n"%(case.__SentBy__, sentBy))
     
     firstCreator = ""
     rowsFirst = []
@@ -85,15 +74,16 @@ def __splitMail__(result, access, lines):
                 firstCreator += "、"
             firstCreator += row[0]
 
-    result.write("%16s %s\n"%(case.__FirstCreator__, firstCreator))
+    query = "INSERT INTO wip_cases (posted_from, posted_subject, posted_time, posted_creator, posted_history,  \
+      history_time, history_creator, first_from, first_time, sent_by, first_creator, type, created_by, status) \
+      VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"%(
+          postedFrom, postedSubject, postedDate, postedCreator, postedHistory,
+          postedHistoryTime, postedHistoryCreator, firstFrom, firstDate, sentBy, firstCreator, "T", "", "false")
 
-    result.write("%16s %s\n"%(case.__CaseType__, "T"))
-    result.write("%16s \n"%(case.__CreatedBy__))
+    c = dbConn.cursor()
+    c.execute(query)
 
-
-def splitAndWrite(mailsLines, result, access):
+def splitAndWrite(mailsLines, dbConn, access):
     for i in range(len(mailsLines)):
-        result.write("# mail {}: \n".format(i + 1))
-        __splitMail__(result, access, mailsLines[i])
-        result.write("\n\n")
+        __splitMail__(dbConn, access, mailsLines[i])
 

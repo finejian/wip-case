@@ -115,3 +115,4 @@ leave.path
 mdb.path
 *.xlsx
 *.xls
+cases.db
